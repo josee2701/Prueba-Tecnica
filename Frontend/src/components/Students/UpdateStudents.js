@@ -44,13 +44,6 @@ function EditarStudents() {
     });
   };
 
-  const handleFileChange = (e) => {
-    setFormData({
-      ...formData,
-      imagen: e.target.files[0]
-    });
-  };
-
   const handleSubmit = (e) => {
     e.preventDefault();
 

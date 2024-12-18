@@ -1,10 +1,10 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import React, { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import './Productos.css';
+import './Inventario.css';
 
-function EliminarEstudiante() {
-  const [error, setError] = useState(null);
+function EliminarProfesor() {
+  const [error, setError] = useState(null); // Estado para almacenar el error del servidor
   const navigate = useNavigate(); // Hook para redirección
   const { id } = useParams(); // Extraer el ID desde la URL
 
@@ -27,50 +27,48 @@ function EliminarEstudiante() {
   // Función para manejar la eliminación
   const handleDelete = () => {
     // Confirmación antes de eliminar
-    const confirmDelete = window.confirm('¿Estás seguro de que deseas eliminar este estudiante?');
-    if (!confirmDelete) {
-      return; // Si cancela, no hacer nada
-    }
+    
 
-    fetch(`http://127.0.0.1:9000/estudiante/${id}/`, {
+    fetch(`http://127.0.0.1:9000/profesor/${id}/`, {
       method: 'DELETE',
       headers: {
         'X-CSRFToken': getCookie('csrftoken'), // Token CSRF
       },
     })
-      .then(response => {
-        if (!response.ok) {
-          // Capturar el error enviado desde el servidor
-          return response.json().then(errData => {
-            throw new Error(errData.detail || 'Error al eliminar el estudiante');
-          });
-        }
+    .then(response => {
+      if (!response.ok) {
+        // Capturar el error enviado desde el servidor
+        return response.json().then(errData => {
+          throw new Error(errData.error || 'Error desconocido al eliminar el Profesor');
+        });
+      }
         setError(null); // Limpiar errores si fue exitoso
-        alert('Estudiante eliminado correctamente');
-        navigate('/tablaestudiantes'); // Redirigir a la lista de estudiantes
+        alert('Profesor eliminado correctamente');
+        navigate('/teacher'); // 
       })
       .catch(error => {
         console.error('Error:', error);
-        setError(error.message); // Mostrar mensaje de error
+        setError(error.message); // Mostrar el mensaje del servidor
       });
   };
 
   return (
     <div className="container">
       <header className="header bg-danger text-white p-3">
-        <h1 className="text-start">Eliminar Estudiante</h1>
+        <h1 className="text-start">Eliminar Porfesor</h1>
       </header>
       <main className="mt-4">
+        {/* Mostrar el error si existe */}
         {error && (
           <div className="alert alert-danger" role="alert">
             {error}
           </div>
         )}
-        <p>¿Estás seguro de que deseas eliminar al estudiante con ID {id}?</p>
+        <p>¿Estás seguro de que deseas eliminar al profesor con ID {id}?</p>
         <button className="btn btn-danger" onClick={handleDelete}>
           Confirmar Eliminación
         </button>
-        <button className="btn btn-secondary ms-2" onClick={() => navigate('/tablaestudiantes')}>
+        <button className="btn btn-secondary ms-2" onClick={() => navigate('/teacher')}>
           Cancelar
         </button>
       </main>
@@ -78,4 +76,4 @@ function EliminarEstudiante() {
   );
 }
 
-export default EliminarEstudiante;
+export default EliminarProfesor;

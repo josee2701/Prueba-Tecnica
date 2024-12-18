@@ -1,13 +1,13 @@
-// src/TablaVentas.js
+// src/TablaNotas.js
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import React, { useEffect, useState } from 'react';
-
-function TablaVentas() {
-  const [ventas, setventas] = useState([]);
+import { Link } from 'react-router-dom';
+function TablaNotas() {
+  const [notas, setnotas] = useState([]);
   const [error, setError] = useState(null);
 
-  
+
   useEffect(() => {
     fetch('http://127.0.0.1:9000/notas/')
       .then(response => {
@@ -16,7 +16,7 @@ function TablaVentas() {
         }
         return response.json();
       })
-      .then(data => setventas(data))
+      .then(data => setnotas(data))
       .catch(error => {
         console.error('Error fetching data:', error);
         setError(error);
@@ -36,21 +36,33 @@ function TablaVentas() {
         {error ? (
           <tr>
             <td colSpan="5" className="text-center text-danger">
-              Error al cargar los productos: {error.message}
+              Error al cargar las notas: {error.message}
             </td>
           </tr>
-        ) : (ventas.map(ventas => (
-          <tr key={ventas.id}>
-            <td>{ventas.id}</td>
-            <td>{ventas.cliente}</td>
-            <td>{ventas.producto_nombre}</td>
-            <td>{ventas.cantidad}</td>
+        ) : (notas.map(notas => (
+          <tr key={notas.id}>
+            <td>{notas.id}</td>
+            <td>{notas.estudiante_nombre}</td>
+            <td>{notas.profesor_nombre}</td>
+            <td>{notas.nota}</td>
+            <td>
+              <Link to={`/updatenotas/${notas.id}`}>
+                <button className="btn btn-primary">
+                  <i className="fa-solid fa-pen"></i>
+                </button>
+              </Link>
+              <Link to={`/deletenotas/${notas.id}`}>
+                <button className="btn btn-danger ">
+                  <i className="fa-solid fa-trash"></i>
+                </button>
+              </Link>
+            </td>
           </tr>
         ))
-      )}
+        )}
       </tbody>
     </table>
   );
 }
 
-export default TablaVentas;
+export default TablaNotas;

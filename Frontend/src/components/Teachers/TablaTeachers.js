@@ -48,7 +48,7 @@ function TablaTeachers() {
                   <i className="fa-solid fa-pen"></i>
                 </button>
               </Link>
-              <Link to={`/deletestudents/${teacher.id}`}>
+              <Link to={`/deleteteacher/${teacher.id}`}>
                   <button className="btn btn-danger ">
                     <i className="fa-solid fa-trash"></i>
                   </button>

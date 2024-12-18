@@ -1,19 +1,18 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import './Inventario.css';
 
 function EditarStudents() {
   const { id } = useParams();
   const [formData, setFormData] = useState({
     nombre: '',
-    precio: '',
-    imagen: null,
-    color: ''
+
   });
 
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(false);
+  const navigate = useNavigate(); // Hook para redirección
 
   useEffect(() => {
     if (id) {
@@ -43,14 +42,6 @@ function EditarStudents() {
       [name]: value
     });
   };
-
-  const handleFileChange = (e) => {
-    setFormData({
-      ...formData,
-      imagen: e.target.files[0]
-    });
-  };
-
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -78,10 +69,9 @@ function EditarStudents() {
       setSuccess(true);
       setFormData({
         nombre: '',
-        precio: '',
-        imagen: null,
-        color: ''
       });
+      // Redirigir a la lista de estudiantes
+      navigate('/teacher');
     })
     .catch(error => {
       console.error('Error:', error);

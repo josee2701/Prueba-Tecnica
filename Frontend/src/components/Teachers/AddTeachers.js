@@ -1,5 +1,6 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './Inventario.css';
 
 function Teachers() {
@@ -9,19 +10,13 @@ function Teachers() {
 
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(false);
+  const navigate = useNavigate(); // Hook para redirección
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({
       ...formData,
       [name]: value
-    });
-  };
-
-  const handleFileChange = (e) => {
-    setFormData({
-      ...formData,
-      imagen: e.target.files[0]
     });
   };
 
@@ -50,6 +45,7 @@ function Teachers() {
       setFormData({
         nombre: '',
       });
+      navigate('/teacher');
     })
     .catch(error => {
       console.error('Error:', error);
