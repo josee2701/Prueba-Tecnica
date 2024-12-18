@@ -1,0 +1,28 @@
+/* src/App.css */
+.App {
+  text-align: start;
+}
+
+.App-header {
+  background-color: #343a40;
+  color: white;
+  padding: 20px;
+  margin-bottom: 20px;
+  border-radius: 2.375rem;
+}
+
+table {
+  margin-top: 20px;
+}
+
+thead th {
+  text-align: center;
+}
+
+tbody td {
+  text-align: center;
+}
+
+.d-flex {
+  align-items: center;
+}
