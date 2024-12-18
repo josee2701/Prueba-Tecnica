@@ -13,7 +13,7 @@ function Productos() {
       </header>
       <main className="mt-4">
         <div className="d-flex justify-content-between mb-3">
-          <button className="btn btn-primary"><Link to="/addproducto">+ Agregar Estudiante</Link></button>
+          <button className="btn btn-primary"><Link to="/addstudents">+ Agregar Estudiante</Link></button>
         </div>
         <TablaStudents />
       </main>

@@ -2,12 +2,13 @@
 import React from 'react';
 import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
 import Navbar from './components/Navbar/Navbar';
-import AddProducto from './components/Students/AddProductos';
+import AddStudents from './components/Students/AddStudents';
+import DeleteStuden from './components/Students/DeleteStuden';
 import Students from './components/Students/Students';
-import UpdateProducto from './components/Students/UpdateProductos';
-import AddStock from './components/Teachers/AddStock';
+import UpdateStudents from './components/Students/UpdateStudents';
+import AddTeachers from './components/Teachers/AddTeachers';
 import Teachers from './components/Teachers/Teachers';
-import UpdateStock from './components/Teachers/UpdateStock';
+import UpdateTeachers from './components/Teachers/UpdateTeachers';
 import Ventas from './components/Ventas/Ventas';
 
 
@@ -18,11 +19,12 @@ function App() {
         <Navbar />
         <Routes>
           <Route path="/" element={<Students />} /> 
-          <Route path="/addstudents" element={<AddProducto />} />
-          <Route path="/updatestudents/:id" element={<UpdateProducto />} />
+          <Route path="/addstudents" element={<AddStudents />} />
+          <Route path="/updatestudents/:id" element={<UpdateStudents />} />
+          <Route path="/deletestudents/:id" element={<DeleteStuden />} />
           <Route path="/teacher" element={<Teachers />} />
-          <Route path="/addteacher" element={<AddStock />} />
-          <Route path="/updateteacher/:id" element={<UpdateStock />} />
+          <Route path="/addteacher" element={<AddTeachers />} />
+          <Route path="/updateteacher/:id" element={<UpdateTeachers />} />
           <Route path="/notas" element={<Ventas />} />
 
         </Routes>

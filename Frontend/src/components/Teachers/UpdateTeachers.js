@@ -3,34 +3,30 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import './Inventario.css';
 
-function EditarProducto() {
-  const { id } = useParams(); // Obtener el ID del producto desde la URL
+function EditarStudents() {
+  const { id } = useParams();
   const [formData, setFormData] = useState({
-    producto: '',
-    cantidad: ''
+    nombre: '',
+    precio: '',
+    imagen: null,
+    color: ''
   });
 
-  const [productos, setProductos] = useState([]);
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(false);
 
   useEffect(() => {
-    // Cargar productos para el dropdown
-    fetch('http://localhost:9000/api/products/')
-      .then(response => response.json())
-      .then(data => setProductos(data))
-      .catch(error => setError(error));
-  }, []);
-
-  useEffect(() => {
     if (id) {
-      // Cargar datos del producto si estamos en modo de edición
-      fetch(`http://localhost:9000/api/stock/${id}/`)
-        .then(response => response.json())
+      fetch(`http://127.0.0.1:9000/profesor/${id}/`)
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('Network response was not ok');
+          }
+          return response.json();
+        })
         .then(data => {
           setFormData({
-            producto: data.producto,
-            cantidad: data.cantidad
+            nombre: data.nombre,
           });
         })
         .catch(error => {
@@ -48,14 +44,20 @@ function EditarProducto() {
     });
   };
 
+  const handleFileChange = (e) => {
+    setFormData({
+      ...formData,
+      imagen: e.target.files[0]
+    });
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
     const data = new FormData();
-    data.append('producto', formData.producto);
-    data.append('cantidad', formData.cantidad);
+    data.append('nombre', formData.nombre);
 
-    const url = id ? `http://localhost:9000/api/stock/${id}/` : 'http://localhost:9000/api/stock/';
+    const url = id ? `http://127.0.0.1:9000/profesor/${id}/` : 'http://127.0.0.1:9000/profesor/';
     const method = id ? 'PUT' : 'POST';
 
     fetch(url, {
@@ -75,8 +77,10 @@ function EditarProducto() {
       console.log('Success:', data);
       setSuccess(true);
       setFormData({
-        producto: '',
-        cantidad: ''
+        nombre: '',
+        precio: '',
+        imagen: null,
+        color: ''
       });
     })
     .catch(error => {
@@ -103,47 +107,30 @@ function EditarProducto() {
   return (
     <div className="container">
       <header className="header bg-primary text-white p-3">
-        <h1 className="text-start">{id ? 'Editar Producto' : 'Nuevo Producto'}</h1>
+        <h1 className="text-start">{id ? 'Editar Students' : 'Nuevo Students'}</h1>
       </header>
       <main className="mt-4">
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} encType="multipart/form-data">
           {error && <div className="alert alert-danger" role="alert">Error: {error.message}</div>}
-          {success && <div className="alert alert-success" role="alert">Producto {id ? 'actualizado' : 'agregado'} exitosamente</div>}
+          {success && <div className="alert alert-success" role="alert">Estudiante {id ? 'actualizado' : 'agregado'} exitosamente</div>}
           <div className="mb-3">
-            <label htmlFor="producto" className="form-label">Producto</label>
-            <select
-              className="form-control"
-              id="producto"
-              name="producto"
-              value={formData.producto}
-              onChange={handleChange}
-              required
-            >
-              <option value="">Seleccione un producto</option>
-              {productos.map(producto => (
-                <option key={producto.id} value={producto.id}>{producto.nombre}</option>
-              ))}
-            </select>
-          </div>
-          <div className="mb-3">
-            <label htmlFor="cantidad" className="form-label">Cantidad</label>
+            <label htmlFor="nombre" className="form-label">Nombre</label>
             <input
-              type="number"
+              type="text"
               className="form-control"
-              id="cantidad"
-              name="cantidad"
-              value={formData.cantidad}
+              id="nombre"
+              name="nombre"
+              value={formData.nombre}
               onChange={handleChange}
               required
             />
           </div>
-          <button type="submit" className="btn btn-primary">
-            {id ? 'Guardar cambios' : 'Agregar Producto'}
-          </button>
+          
+          <button type="submit" className="btn btn-primary">{id ? 'Guardar cambios' : 'Agregar Productp'}</button>
         </form>
       </main>
     </div>
   );
 }
 
-export default EditarProducto;
+export default EditarStudents;

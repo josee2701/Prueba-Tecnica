@@ -1,22 +1,22 @@
-// src/TablaProductos.js
+// src/TablaStudents.js
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
-function TablaProductos() {
-  const [productos, setProductos] = useState([]);
+function TablaStudents() {
+  const [students, setStudents] = useState([]);
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    fetch('http://localhost:9000/estudiante/')
+    fetch('http://127.0.0.1:9000/estudiante/')
       .then(response => {
         if (!response.ok) {
           throw new Error('Network response was not ok');
         }
         return response.json();
       })
-      .then(data => setProductos(data))
+      .then(data => setStudents(data))
       .catch(error => {
         console.error('Error fetching data:', error);
         setError(error);
@@ -35,22 +35,28 @@ function TablaProductos() {
         {error ? (
           <tr>
             <td colSpan="5" className="text-center text-danger">
-              Error al cargar los productos: {error.message}
+              Error al cargar a los estudiantes: {error.message}
             </td>
           </tr>
         ) : (
-          productos.map(producto => (
-            <tr key={producto.id}>
-              <td>{producto.id}</td>
-              <td>{producto.nombre}</td>
+          students.map(student => (
+            <tr key={student.id}>
+              <td>{student.id}</td>
+              <td>{student.nombre}</td>
 
               <td>
-                <Link to={`/updateproducto/${producto.id}`}>
+                <Link to={`/updatestudents/${student.id}`}>
                   <button className="btn btn-primary">
                     <i className="fa-solid fa-pen"></i>
                   </button>
                 </Link>
+                <Link to={`/deletestudents/${student.id}`}>
+                  <button className="btn btn-danger ">
+                    <i className="fa-solid fa-trash"></i>
+                  </button>
+                </Link>
               </td>
+              
             </tr>
           ))
         )}
@@ -59,4 +65,4 @@ function TablaProductos() {
   );
 }
 
-export default TablaProductos;
+export default TablaStudents;

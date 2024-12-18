@@ -9,7 +9,7 @@ function TablaVentas() {
 
   
   useEffect(() => {
-    fetch('http://localhost:9000/api/ventas/')
+    fetch('http://127.0.0.1:9000/notas/')
       .then(response => {
         if (!response.ok) {
           throw new Error('Network response was not ok');
@@ -27,11 +27,9 @@ function TablaVentas() {
       <thead className="thead-dark">
         <tr>
           <th>ID</th>
-          <th>Cliente</th>
-          <th>Producto</th>
-          <th>Cantidad</th>
-          <th>Precio</th>
-          <th>Fecha</th>
+          <th>Estudiante</th>
+          <th>Profersor</th>
+          <th>Nota</th>
         </tr>
       </thead>
       <tbody>
@@ -47,8 +45,6 @@ function TablaVentas() {
             <td>{ventas.cliente}</td>
             <td>{ventas.producto_nombre}</td>
             <td>{ventas.cantidad}</td>
-            <td>{ventas.precio}</td>
-            <td>{ventas.fecha}</td>
           </tr>
         ))
       )}

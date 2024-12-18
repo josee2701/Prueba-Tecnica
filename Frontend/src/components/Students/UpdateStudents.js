@@ -1,24 +1,23 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
+
 import './Productos.css';
 
-function EditarProducto() {
+function EditarStudents() {
   const { id } = useParams();
   const [formData, setFormData] = useState({
     nombre: '',
-    precio: '',
-    imagen: null,
-    color: ''
   });
 
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(false);
+  const navigate = useNavigate(); // Hook para redirección
+  
 
   useEffect(() => {
     if (id) {
-      // Fetch the product details if we are in edit mode
-      fetch(`http://localhost:9000/estudiante/${id}/`)
+      fetch(`http://127.0.0.1:9000/estudiante/${id}/`)
         .then(response => {
           if (!response.ok) {
             throw new Error('Network response was not ok');
@@ -28,9 +27,6 @@ function EditarProducto() {
         .then(data => {
           setFormData({
             nombre: data.nombre,
-            precio: data.precio,
-            imagen: null, // We don't pre-fill the file input
-            color: data.color
           });
         })
         .catch(error => {
@@ -60,13 +56,8 @@ function EditarProducto() {
 
     const data = new FormData();
     data.append('nombre', formData.nombre);
-    data.append('precio', formData.precio);
-    if (formData.imagen) {
-      data.append('imagen', formData.imagen);
-    }
-    data.append('color', formData.color);
 
-    const url = id ? `http://localhost:9000/api/products/${id}/` : 'http://localhost:9000/api/products/';
+    const url = id ? `http://127.0.0.1:9000/estudiante/${id}/` : 'http://127.0.0.1:9000/estudiante/';
     const method = id ? 'PUT' : 'POST';
 
     fetch(url, {
@@ -87,10 +78,10 @@ function EditarProducto() {
       setSuccess(true);
       setFormData({
         nombre: '',
-        precio: '',
-        imagen: null,
-        color: ''
+
       });
+      // Redirigir a la lista de estudiantes
+      navigate('/');
     })
     .catch(error => {
       console.error('Error:', error);
@@ -116,12 +107,12 @@ function EditarProducto() {
   return (
     <div className="container">
       <header className="header bg-primary text-white p-3">
-        <h1 className="text-start">{id ? 'Editar Producto' : 'Nuevo Producto'}</h1>
+        <h1 className="text-start">{id ? 'Editar Students' : 'Nuevo Students'}</h1>
       </header>
       <main className="mt-4">
         <form onSubmit={handleSubmit} encType="multipart/form-data">
           {error && <div className="alert alert-danger" role="alert">Error: {error.message}</div>}
-          {success && <div className="alert alert-success" role="alert">Producto {id ? 'actualizado' : 'agregado'} exitosamente</div>}
+          {success && <div className="alert alert-success" role="alert">Estudiante {id ? 'actualizado' : 'agregado'} exitosamente</div>}
           <div className="mb-3">
             <label htmlFor="nombre" className="form-label">Nombre</label>
             <input
@@ -134,46 +125,12 @@ function EditarProducto() {
               required
             />
           </div>
-          <div className="mb-3">
-            <label htmlFor="precio" className="form-label">Precio</label>
-            <input
-              type="number"
-              className="form-control"
-              id="precio"
-              name="precio"
-              value={formData.precio}
-              onChange={handleChange}
-              required
-            />
-          </div>
-          <div className="mb-3">
-            <label htmlFor="imagen" className="form-label">Imagen</label>
-            <input
-              type="file"
-              className="form-control"
-              id="imagen"
-              name="imagen"
-              onChange={handleFileChange}
-              required
-            />
-          </div>
-          <div className="mb-3">
-            <label htmlFor="color" className="form-label">Color</label>
-            <input
-              type="text"
-              className="form-control"
-              id="color"
-              name="color"
-              value={formData.color}
-              onChange={handleChange}
-              required
-            />
-          </div>
-          <button type="submit" className="btn btn-primary">{id ? 'Guardar cambios' : 'Agregar Producto'}</button>
+          
+          <button type="submit" className="btn btn-primary">{id ? 'Guardar cambios' : 'Agregar Productp'}</button>
         </form>
       </main>
     </div>
   );
 }
 
-export default EditarProducto;
+export default EditarStudents;

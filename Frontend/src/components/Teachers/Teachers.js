@@ -13,7 +13,7 @@ function Inventario() {
       </header>
       <main className="mt-4">
         <div className="d-flex justify-content-between mb-3">
-          <button className="btn btn-primary"><Link to="/addstock">+ Agrgar Teachers</Link></button>
+          <button className="btn btn-primary"><Link to="/addteacher">+ Agrgar Teachers</Link></button>
         </div>
         <TablaTeachers />
       </main>

@@ -1,13 +1,10 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import React, { useState } from 'react';
-import './Productos.css';
+import './Inventario.css';
 
-function Productos() {
+function Teachers() {
   const [formData, setFormData] = useState({
     nombre: '',
-    precio: '',
-    imagen: null,
-    color: ''
   });
 
   const [error, setError] = useState(null);
@@ -33,11 +30,8 @@ function Productos() {
 
     const data = new FormData();
     data.append('nombre', formData.nombre);
-    data.append('precio', formData.precio);
-    data.append('imagen', formData.imagen);
-    data.append('color', formData.color);
 
-    fetch('http://localhost:9000/estudiante/', {
+    fetch('http://127.0.0.1:9000/profesor/', {
       method: 'POST',
       headers: {
         'X-CSRFToken': getCookie('csrftoken'),  // Aquí se incluye el token CSRF
@@ -55,9 +49,6 @@ function Productos() {
       setSuccess(true);
       setFormData({
         nombre: '',
-        precio: '',
-        imagen: null,
-        color: ''
       });
     })
     .catch(error => {
@@ -85,12 +76,12 @@ function Productos() {
   return (
     <div className="container">
       <header className="header bg-primary text-white p-3">
-        <h1 className="text-start">Nuevo Producto</h1>
+        <h1 className="text-start">Nuevo profesor</h1>
       </header>
       <main className="mt-4">
         <form onSubmit={handleSubmit} encType="multipart/form-data">
-          {error && <div className="alert alert-danger" role="alert">Error al agregar el producto: {error.message}</div>}
-          {success && <div className="alert alert-success" role="alert">Producto agregado exitosamente</div>}
+          {error && <div className="alert alert-danger" role="alert">Error al agregar al profesor: {error.message}</div>}
+          {success && <div className="alert alert-success" role="alert">profesor agregado exitosamente</div>}
           <div className="mb-3">
             <label htmlFor="nombre" className="form-label">Nombre</label>
             <input
@@ -103,46 +94,11 @@ function Productos() {
               required
             />
           </div>
-          <div className="mb-3">
-            <label htmlFor="precio" className="form-label">Precio</label>
-            <input
-              type="number"
-              className="form-control"
-              id="precio"
-              name="precio"
-              value={formData.precio}
-              onChange={handleChange}
-              required
-            />
-          </div>
-          <div className="mb-3">
-            <label htmlFor="imagen" className="form-label">Imagen</label>
-            <input
-              type="file"
-              className="form-control"
-              id="imagen"
-              name="imagen"
-              onChange={handleFileChange}
-              required
-            />
-          </div>
-          <div className="mb-3">
-            <label htmlFor="color" className="form-label">Color</label>
-            <input
-              type="text"
-              className="form-control"
-              id="color"
-              name="color"
-              value={formData.color}
-              onChange={handleChange}
-              required
-            />
-          </div>
-          <button type="submit" className="btn btn-primary">Agregar Producto</button>
+          <button type="submit" className="btn btn-primary">Agregar</button>
         </form>
       </main>
     </div>
   );
 }
 
-export default Productos;
+export default Teachers;
