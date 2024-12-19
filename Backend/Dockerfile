@@ -20,10 +20,6 @@ RUN chmod +x /app/entrypoint.sh
 # Instala socat para verificar la disponibilidad del puerto
 RUN apt-get update && apt-get install -y socat
 
-# Establece un argumento para el entorno
-ARG ENV=production
-ENV ENV=${ENV}
-
 # Expone el puerto 8000
 EXPOSE 8000
 
