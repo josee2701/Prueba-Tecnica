@@ -136,7 +136,7 @@ function EditarNota() {
         <form onSubmit={handleSubmit}>
           {/* Nombre de la nota */}
           <div className="mb-3">
-            <label htmlFor="nombre" className="form-label">Nombre</label>
+            <label htmlFor="nombre" className="form-label">Detalle</label>
             <input
               type="text"
               className="form-control"

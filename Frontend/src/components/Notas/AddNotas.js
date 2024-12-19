@@ -119,7 +119,7 @@ function NuevaNota() {
 
           {/* Nombre de la Nota */}
           <div className="mb-3">
-            <label htmlFor="nombre" className="form-label">Nota</label>
+            <label htmlFor="nombre" className="form-label">Detalle</label>
             <input
               type="text"
               className="form-control"
