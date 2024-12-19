@@ -33,7 +33,10 @@ class ProfesorSerializer(serializers.ModelSerializer):
 
 
 class NotasSerializer(serializers.ModelSerializer):
-    
+    estudiante_nombre = serializers.CharField(source='estudiante.nombre', read_only=True)
+    profesor_nombre = serializers.CharField(source='profesor.nombre', read_only=True)
+
     class Meta:
         model = Notas
-        fields = '__all__'
+        fields = ['id', 'nombre', 'estudiante', 'estudiante_nombre', 'profesor', 'profesor_nombre', 'nota']
+
