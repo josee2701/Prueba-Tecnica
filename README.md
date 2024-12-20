@@ -2,8 +2,7 @@
 
 Este proyecto es una aplicación donde se realiza 3 modulos el cual cada uno tiene un CRUD que utiliza Django restframework como backend y React como frontend. El entorno del proyecto está gestionado con Docker para facilitar la configuración y ejecución.
 
-![image](https://github.com/user-attachments/assets/bfa30a98-500b-485c-b461-84ceff61b5f6)
-
+![image](https://github.com/user-attachments/assets/85a7c7b3-d7e3-463f-999f-c0b0fd54b8f8)
 
 ## Estructura del Proyecto
 
