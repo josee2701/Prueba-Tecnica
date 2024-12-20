@@ -144,6 +144,56 @@ Sigue estos pasos para ejecutar el proyecto localmente:
     ```bash
     docker-compose down
     ```
+    
+## APIs Implementadas
+
+### 1. API de Estudiantes
+
+- **Endpoint:** `/estudiante/`
+- **Descripción:** Gestión de los datos de estudiantes.
+- **Operaciones disponibles:**
+  - **GET:** Obtiene la lista de todos los estudiantes.
+  - **POST:** Crea un nuevo estudiante.
+  - **PUT/PATCH:** Actualiza los datos de un estudiante existente.
+  - **DELETE:** Elimina un estudiante **solo si no tiene notas asociadas**. Si tiene notas asociadas, retorna un error.
+- **Validación al eliminar:**  
+  Si un estudiante tiene notas asociadas, se genera un error indicando:  
+  `"El estudiante '<nombre>' no puede ser eliminado porque tiene notas asociadas."`
+- **Serializador:**  
+  `EstudianteSerializer`, define la estructura y validaciones para el modelo **Estudiante**.
+
+---
+
+### 2. API de Profesores
+
+- **Endpoint:** `/profesor/`
+- **Descripción:** Gestión de los datos de profesores.
+- **Operaciones disponibles:**
+  - **GET:** Obtiene la lista de todos los profesores.
+  - **POST:** Crea un nuevo profesor.
+  - **PUT/PATCH:** Actualiza los datos de un profesor existente.
+  - **DELETE:** Elimina un profesor **solo si no tiene notas asociadas**. Si tiene notas asociadas, retorna un error.
+- **Validación al eliminar:**  
+  Si un profesor tiene notas asociadas, se genera un error indicando:  
+  `"El profesor '<nombre>' no puede ser eliminado porque tiene notas asociadas."`
+- **Serializador:**  
+  `ProfesorSerializer`, define la estructura y validaciones para el modelo **Profesor**.
+
+---
+
+### 3. API de Notas
+
+- **Endpoint:** `/notas/`
+- **Descripción:** Gestión de las notas asignadas a estudiantes por los profesores.
+- **Operaciones disponibles:**
+  - **GET:** Obtiene la lista de todas las notas. Incluye campos adicionales:
+    - `estudiante_nombre`: Nombre del estudiante asociado.
+    - `profesor_nombre`: Nombre del profesor asociado.
+  - **POST:** Crea una nueva nota asociada a un estudiante y profesor.
+  - **PUT/PATCH:** Actualiza una nota existente.
+  - **DELETE:** Elimina una nota.
+- **Serializador:**  
+  `NotasSerializer`, define la estructura y validaciones para el modelo **Notas** e incluye los campos calculados `estudiante_nombre` y `profesor_nombre`.
 
 ## Scripts Disponibles
 
